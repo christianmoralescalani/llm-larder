@@ -49,17 +49,17 @@ LocalLLM/
 
 ## 3. Topic breakdown
 
-### 00 — Foundations `[ ]`
+### 00 — Foundations `[x]`
 Core concepts. Everything else assumes this is understood.
-- [ ] **What is a token**: BPE/byte-level tokenization, tokens vs words, why it matters for context length and cost; `tiktoken` / HF tokenizer demo
-- [ ] **What are parameters**: weights, why "7B" means 7 billion, parameter count vs intelligence, dense vs sparse
-- [ ] **Model architecture basics**: Transformer, attention, layers, hidden size, heads — enough to understand VRAM math
-- [ ] **MoE (Mixture of Experts)**: what it is, active vs total params, why DeepSeek/Qwen MoE are fast but big
-- [ ] **MTP (Multi-Token Prediction)**: what it is, which models use it (DeepSeek-V3/R1), impact on inference
-- [ ] **Context window**: what it is, sliding windows, why it's not free (KV cache)
-- [ ] **Inference pipeline**: prompt processing (prefill) vs token generation (decode), what "tokens/sec" really means
-- [ ] **Model formats**: safetensors vs GGUF vs others, what quantization is (FP16/BF16/INT8/INT4, Q4_K_M etc.), quant levels and quality tradeoffs
-- [ ] **System prompts & chat templates**: what a chat template is, why it matters for quality
+- [x] **What is a token**: BPE/byte-level tokenization, tokens vs words, why it matters for context length and cost; `tiktoken` / HF tokenizer demo
+- [x] **What are parameters**: weights, why "7B" means 7 billion, parameter count vs intelligence, dense vs sparse
+- [x] **Model architecture basics**: Transformer, attention, layers, hidden size, heads — enough to understand VRAM math
+- [x] **MoE (Mixture of Experts)**: what it is, active vs total params, why DeepSeek/Qwen MoE are fast but big
+- [x] **MTP (Multi-Token Prediction)**: what it is, which models use it (DeepSeek-V3/R1), impact on inference
+- [x] **Context window**: what it is, sliding windows, why it's not free (KV cache)
+- [x] **Inference pipeline**: prompt processing (prefill) vs token generation (decode), what "tokens/sec" really means
+- [x] **Model formats**: safetensors vs GGUF vs others, what quantization is (FP16/BF16/INT8/INT4, Q4_K_M etc.), quant levels and quality tradeoffs
+- [x] **System prompts & chat templates**: what a chat template is, why it matters for quality
 
 ### 01 — Hugging Face `[ ]`
 - [ ] **The Hub**: how models are organized (org/model, tags, task, license)
