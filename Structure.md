@@ -61,14 +61,19 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Model formats**: safetensors vs GGUF vs others, what quantization is (FP16/BF16/INT8/INT4, Q4_K_M etc.), quant levels and quality tradeoffs
 - [x] **System prompts & chat templates**: what a chat template is, why it matters for quality
 
-### 01 — Hugging Face `[ ]`
-- [ ] **The Hub**: how models are organized (org/model, tags, task, license)
-- [ ] **Searching models**: filters (task, params, license, quantization, GGUF), comparing model cards, reading benchmarks honestly
-- [ ] **Model cards**: architecture, context, license, recommended usage
-- [ ] **Downloading**: `huggingface-cli` (`hf` CLI), `git lfs`, Python `huggingface_hub`, gated models & tokens
-- [ ] **`transformers` library**: `pipeline()` for quick tests, `AutoModelForCausalLM`, when to use it vs a dedicated runtime
-- [ ] **GGUF repos on HF**: where to find community quantizations (bartowski, unsloth, mradermacher), which quants to pick
-- [ ] **Licenses**: MIT vs Apache-2.0 vs Llama community license vs research-only — what you can and can't do
+### 01 — Hugging Face `[x]`
+- [x] **The Hub**: how models are organized (org/model, tags, task, license) — `notes/searching-models.md`
+- [x] **Searching models**: filters (task, params, license, quantization, GGUF), comparing model cards, reading benchmarks honestly — `notes/searching-models.md`, `cheatsheets/hf-search.md`
+- [x] **Model cards**: architecture, context, license, recommended usage — `notes/searching-models.md`
+- [x] **Downloading**: `hf` CLI, `git lfs`, Python `huggingface_hub`, gated models & tokens — `notes/useful-tools.md`, `cheatsheets/hf-download.md`
+- [x] **`transformers` library**: `pipeline()` for quick tests, `AutoModelForCausalLM`, when to use it vs a dedicated runtime — `notes/useful-tools.md`
+- [x] **GGUF repos on HF**: where to find community quantizations (ggml-org, bartowski, unsloth, mradermacher), which quants to pick — `notes/formats-and-quantization.md`
+- [x] **Licenses**: MIT vs Apache-2.0 vs Llama community license vs research-only — what you can and can't do — `notes/searching-models.md`
+- [x] **Formats on the Hub**: GGUF vs safetensors vs MLX/ONNX, GPTQ/AWQ/FP8, how to tell what a repo is — `notes/formats-and-quantization.md`, `cheatsheets/gguf-filenames.md`
+- [x] **MTP models**: where MTP lives (config flag, embedded tensors, sidecar/assistant files), how to check & run them (llama.cpp `--spec-type draft-mtp`, vLLM) — `notes/mtp-models.md`
+- [x] **mmproj (vision)**: what it is, naming, where to find it, how to use it (llama.cpp/Ollama/LM Studio) — `notes/mmproj-vision.md`
+- [x] **Inspecting weights**: file listing, `config.json`, GGUF/safetensors tensor inspection, checksums — `notes/inspecting-weights.md`, `cheatsheets/inspect-weights.md`
+- [x] **Extra tools**: full `hf` CLI, cache management, aria2c, hf-mirror, HF API for scripting — `notes/useful-tools.md`
 
 ### 02 — Hardware & VRAM `[ ]`
 - [ ] **The VRAM formula**: `weights + KV cache + activations/overhead` with worked examples (7B, 13B, 70B at Q4/Q8/FP16)

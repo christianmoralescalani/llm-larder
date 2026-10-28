@@ -6,3 +6,5 @@ Curated video list for this topic. Format:
 
 ## Videos
 
+_(to curate — search for: "Hugging Face Hub tutorial", "how to find models on Hugging Face", "GGUF quantization explained", "llama.cpp mmproj vision", "speculative decoding MTP DeepSeek")_
+
