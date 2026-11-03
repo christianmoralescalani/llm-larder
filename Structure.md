@@ -75,15 +75,15 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Inspecting weights**: file listing, `config.json`, GGUF/safetensors tensor inspection, checksums — `notes/inspecting-weights.md`, `cheatsheets/inspect-weights.md`
 - [x] **Extra tools**: full `hf` CLI, cache management, aria2c, hf-mirror, HF API for scripting — `notes/useful-tools.md`
 
-### 02 — Hardware & VRAM `[ ]`
-- [ ] **The VRAM formula**: `weights + KV cache + activations/overhead` with worked examples (7B, 13B, 70B at Q4/Q8/FP16)
-- [ ] **Quantization math**: bytes per weight, table of quant → size → quality (Q4_K_M ≈ 0.57 bytes/param, etc.)
-- [ ] **KV cache math**: how context length and batch size eat VRAM; why 128k context on a 7B model can OOM
-- [ ] **VRAM vs RAM vs CPU**: what happens when the model doesn't fit in VRAM, offloading, expected speeds (GPU vs CPU tokens/sec)
-- [ ] **GPU guide**: consumer cards (RTX 30/40/50 series VRAM table), what model size each card runs comfortably
-- [ ] **Apple Silicon / unified memory**: why Macs run big models, memory bandwidth limits, swapping
-- [ ] **Multi-GPU**: when and how to split a model across cards
-- [ ] **Cheatsheet**: "I have X GB VRAM → which models/quants fit" decision table
+### 02 — Hardware & VRAM `[x]`
+- [x] **The VRAM formula**: `weights + KV cache + activations/overhead` with worked examples (7B, 13B, 70B at Q4/Q8/FP16) — `notes/vram-formula.md`
+- [x] **Quantization math**: bytes per weight, table of quant → size → quality (Q4_K_M ≈ 0.61 bytes/param measured, etc.) — `notes/quantization-math.md`
+- [x] **KV cache math**: how context length and batch size eat VRAM; why 128k context on a 7B model can OOM — `notes/kv-cache-math.md`
+- [x] **VRAM vs RAM vs CPU**: what happens when the model doesn't fit in VRAM, offloading, expected speeds (GPU vs CPU tokens/sec) — `notes/vram-vs-ram-cpu.md`
+- [x] **GPU guide**: consumer cards (RTX 30/40/50 series VRAM table), what model size each card runs comfortably — `notes/gpu-guide.md`
+- [x] **Apple Silicon / unified memory**: why Macs run big models, memory bandwidth limits, swapping — `notes/apple-silicon.md`
+- [x] **Multi-GPU**: when and how to split a model across cards — `notes/multi-gpu.md`
+- [x] **Cheatsheet**: "I have X GB VRAM → which models/quants fit" decision table — `cheatsheets/vram-budget.md`
 
 ### 03 — Ollama `[ ]`
 - [ ] **Install**: Linux (script + systemd), Windows, macOS; updating; uninstall
