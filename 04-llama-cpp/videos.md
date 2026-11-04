@@ -6,3 +6,4 @@ Curated video list for this topic. Format:
 
 ## Videos
 
+- (fill in after watching — candidates: llama.cpp official talks/tutorials, "how to quantize a model" walkthroughs, speculative decoding explainers)

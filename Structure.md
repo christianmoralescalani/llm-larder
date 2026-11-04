@@ -97,22 +97,24 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Vision models in Ollama**: running llava / gemma3 / qwen-vl with image input (CLI + base64 API) — `notes/vision-models.md`
 - [x] **Docker**: official image, GPU (NVIDIA/AMD/Vulkan), mounting models, exposing the port, compose, multi-instance — `notes/docker.md`, `cheatsheets/ollama-docker.md`
 
-### 04 — llama.cpp `[ ]`
-- [ ] **Build**: CMake (CPU, CUDA, ROCm, Vulkan, SYCL), prebuilt binaries, `make llamacpp`
-- [ ] **Tool inventory**: `llama-cli`, `llama-server`, `llama-quantize`, `llama-bench`, `llama-perplexity`, `llama-embeddings`, `llama-save-load-state`, `llama-export-lora`, `convert_hf_to_gguf.py`
-- [ ] **llama-server — full flag reference** (the big cheatsheet):
+### 04 — llama.cpp `[x]`
+> All examples in this section are Docker-based — the official `ghcr.io/ggml-org/llama.cpp` images are the install (CMake native build is reference-only; the Makefile build is gone).
+- [x] **Build**: Docker-first (image matrix full/light/server × CPU/CUDA/ROCm/Vulkan/SYCL/MUSA/OpenVINO), GPU prerequisites, local image builds; CMake native build (CPU, CUDA, ROCm, Vulkan, SYCL, MUSA, BLAS) for reference — `notes/installation.md`, `notes/docker.md`, `cheatsheets/llama-cpp-docker.md`
+- [x] **Tool inventory**: current `tools/` (server, cli, completion, quantize, imatrix, bench, perplexity, export-lora, gguf-split, …), removed tools (`llama-embeddings`, `llama-save-load-state`), unified `llama` binary (`llama cli`, `llama serve`) — `notes/tools-inventory.md`
+- [x] **llama-server — full flag reference** (the big cheatsheet):
   - hosting: `--host`, `--port`, `--api-key`, `--cors`
-  - model: `--model`, `--lora`, `--gguf-model`, `--huggingface-repo`, `--huggingface-file`
-  - memory: `--n-gpu-layers`, `--n-cpu-moe`, `--main-gpu`, `--tensor-split`, `--mlock`, `--mmap`, `--no-mmap`, `--cache-type-k/v`
+  - model: `--model`, `-hf`, `--lora`, `--alias`
+  - memory: `--n-gpu-layers`, `--n-cpu-moe`, `--main-gpu`, `--tensor-split`, `--load-mode` (mmap/mlock), `--cache-type-k/v`
   - context: `--ctx-size`, `--n-predict`, `--parallel`, `--batch`, `--ubatch`, `--flash-attn`
   - sampling: `--temp`, `--top-k`, `--top-p`, `--min-p`, `--repeat-penalty`, `--seed`, `--stop`
-  - advanced: `--jinja`, `--chat-template`, `--spec-type` (draft models / speculative decoding), `--rpc`, `--port` metrics
-- [ ] **llama-cli — interactive use**: key flags, `--interactive-first`, `--prompt`, reasoning models
-- [ ] **Quantizing your own models**: `convert_hf_to_gguf.py` → `llama-quantize`, choosing imatrix, quant selection
-- [ ] **Benchmarking**: `llama-bench` to compare quants/flags on your hardware
-- [ ] **Speculative decoding**: draft models, self-speculative, when it helps
-- [ ] **LoRA**: loading adapters, combining with base models
-- [ ] **OpenAI-compatible API**: endpoints, chat template behavior, `/v1/models`, `/v1/chat/completions`
+  - advanced: `--jinja`, `--chat-template`, `--reasoning`, `--spec-type` (draft models / speculative decoding), `--metrics`, router/agent modes — `notes/llama-server.md`, `cheatsheets/llama-server-flags.md`
+- [x] **llama-cli — interactive use**: key flags, `-p`/`--single-turn`, `--reverse-prompt`, `--verbose-prompt`, reasoning models — `notes/llama-cli.md`, `cheatsheets/llama-cli-flags.md`
+- [x] **Quantizing your own models**: `convert_hf_to_gguf.py` → `llama-quantize`, imatrix, quant selection, mmproj — `notes/quantization.md`
+- [x] **Benchmarking**: `llama-bench` to compare quants/flags on your hardware — `notes/benchmarking.md`
+- [x] **Speculative decoding**: draft models, EAGLE-3/DFlash/DSpark, MTP heads, ngram (no extra model), when it helps — `notes/speculative-decoding.md`
+- [x] **LoRA**: loading adapters, runtime switching, merging with `llama-export-lora` — `notes/lora.md`
+- [x] **OpenAI-compatible API**: endpoints, chat template behavior, `/v1/models`, `/v1/chat/completions`, Anthropic `/v1/messages`, native endpoints — `notes/api.md`, `cheatsheets/llama-cpp-commands.md`
+- [x] **Docker**: image matrix, GPU (NVIDIA/AMD/Vulkan/Intel), mounting models, `-hf` pulls, compose, `LLAMA_ARG_*` env vars — `notes/docker.md`, `cheatsheets/llama-cpp-docker.md`
 
 ### 05 — vLLM `[ ]`
 - [ ] **What vLLM is**: PagedAttention, continuous batching, why it's fast for serving
