@@ -6,3 +6,5 @@ Curated video list for this topic. Format:
 
 ## Videos
 
+_(to curate — search for: "Ollama tutorial 2026", "ollama docker gpu nvidia", "ollama modelfile custom model", "ollama rest api chat completions", "ollama vs llama.cpp")_
+

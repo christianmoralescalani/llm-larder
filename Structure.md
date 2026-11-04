@@ -85,16 +85,17 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Multi-GPU**: when and how to split a model across cards — `notes/multi-gpu.md`
 - [x] **Cheatsheet**: "I have X GB VRAM → which models/quants fit" decision table — `cheatsheets/vram-budget.md`
 
-### 03 — Ollama `[ ]`
-- [ ] **Install**: Linux (script + systemd), Windows, macOS; updating; uninstall
-- [ ] **Core commands**: `ollama run`, `pull`, `list`, `ps`, `stop`, `show`, `bench`, `serve`, `help`
-- [ ] **Model management**: `create`, `delete`, `push`, `pull` from custom registries, tags
-- [ ] **Modelfile**: `FROM`, `PARAMETER`, `SYSTEM`, `TEMPLATE`, `ADAPTER` — building custom models
-- [ ] **Configuration (env vars)**: `OLLAMA_HOST`, `OLLAMA_MODELS`, `OLLAMA_NUM_PARALLEL`, `OLLAMA_MAX_LOADED_MODELS`, `OLLAMA_KV_CACHE`, `OLLAMA_CONTEXT_LENGTH`, `OLLAMA_FLASH_ATTENTION`, `OLLAMA_NUM_GPU`, `OLLAMA_KEEP_ALIVE`, `OLLAMA_MAX_QUEUE`… full table with defaults
-- [ ] **systemd**: `systemctl edit ollama` to set env vars persistently
-- [ ] **REST API**: `/api/generate`, `/api/chat`, `/api/tags`, `/api/ps` with curl examples
-- [ ] **Vision models in Ollama**: running llava / gemma3 / qwen-vl with image input
-- [ ] **Docker**: official image, mounting models, exposing the port
+### 03 — Ollama `[x]`
+> All examples in this section are Docker-based (docker CLI / compose) — the official `ollama/ollama` image is the install.
+- [x] **Install**: Docker-first (official image, `docker run` + compose), image tags, updating, uninstall; native install (script + systemd) for reference — `notes/installation.md`
+- [x] **Core commands**: `run`, `pull`, `ls`, `ps`, `stop`, `show`, `create`, `serve`, `launch`, `help` via `docker exec` (note: no `bench` in the current CLI) — `notes/core-commands.md`, `cheatsheets/ollama-commands.md`
+- [x] **Model management**: `create`, `rm`, `cp`, `push`, pull from custom registries (`OLLAMA_REGISTRY`), tags — `notes/model-management.md`
+- [x] **Modelfile**: `FROM` (model/GGUF/safetensors), `PARAMETER`, `SYSTEM`, `TEMPLATE`, `MESSAGE`, `REQUIRES`, `CAPABILITY` (`ADAPTER` is legacy) — `notes/modelfile.md`
+- [x] **Configuration (env vars)**: full table with defaults (`OLLAMA_HOST`, `OLLAMA_MODELS`, `OLLAMA_NUM_PARALLEL`, `OLLAMA_MAX_LOADED_MODELS`, `OLLAMA_KV_CACHE_TYPE`, `OLLAMA_CONTEXT_LENGTH`, `OLLAMA_FLASH_ATTENTION`, `OLLAMA_NUM_GPU`, `OLLAMA_KEEP_ALIVE`, `OLLAMA_MAX_QUEUE`, …) — `notes/configuration.md`, `cheatsheets/ollama-env-vars.md`
+- [x] **systemd**: `systemctl edit ollama` to set env vars persistently (native install) — `notes/configuration.md`
+- [x] **REST API**: `/api/generate`, `/api/chat`, `/api/tags`, `/api/ps` with curl, streaming, keep_alive, OpenAI-compatible — `notes/rest-api.md`, `cheatsheets/ollama-api.md`
+- [x] **Vision models in Ollama**: running llava / gemma3 / qwen-vl with image input (CLI + base64 API) — `notes/vision-models.md`
+- [x] **Docker**: official image, GPU (NVIDIA/AMD/Vulkan), mounting models, exposing the port, compose, multi-instance — `notes/docker.md`, `cheatsheets/ollama-docker.md`
 
 ### 04 — llama.cpp `[ ]`
 - [ ] **Build**: CMake (CPU, CUDA, ROCm, Vulkan, SYCL), prebuilt binaries, `make llamacpp`
