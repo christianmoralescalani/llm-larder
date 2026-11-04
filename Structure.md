@@ -116,17 +116,17 @@ Core concepts. Everything else assumes this is understood.
 - [x] **OpenAI-compatible API**: endpoints, chat template behavior, `/v1/models`, `/v1/chat/completions`, Anthropic `/v1/messages`, native endpoints — `notes/api.md`, `cheatsheets/llama-cpp-commands.md`
 - [x] **Docker**: image matrix, GPU (NVIDIA/AMD/Vulkan/Intel), mounting models, `-hf` pulls, compose, `LLAMA_ARG_*` env vars — `notes/docker.md`, `cheatsheets/llama-cpp-docker.md`
 
-### 05 — vLLM `[ ]`
-- [ ] **What vLLM is**: PagedAttention, continuous batching, why it's fast for serving
-- [ ] **Install**: pip (with CUDA), Docker image, conda; hardware requirements
-- [ ] **Quickstart**: `vllm serve <model>` → OpenAI-compatible server in one command
-- [ ] **`vllm serve` — key flags**: `--tensor-parallel-size`, `--pipeline-parallel-size`, `--gpu-memory-utilization`, `--max-model-len`, `--max-num-seqs`, `--quantization` (awq, gptq, fp8, bitsandbytes…), `--dtype`, `--enable-prefix-caching`, `--speculative-config`, `--served-model-name`, `--port`, `--api-key`
-- [ ] **Offline inference**: Python `LLM` class, `SamplingParams`, batched generation
-- [ ] **Model support**: which architectures/quants are supported, vision models (Qwen2-VL etc.), audio
-- [ ] **Multi-GPU**: tensor parallelism in practice, examples (70B on 2×24GB)
-- [ ] **Benchmarking**: `vllm bench` (throughput, latency, TTFT)
-- [ ] **Metrics & monitoring**: Prometheus `/metrics`, what to watch
-- [ ] **vLLM vs llama.cpp vs Ollama**: when to use which (cheatsheet)
+### 05 — vLLM `[x]`
+- [x] **What vLLM is**: PagedAttention, continuous batching, why it's fast for serving — `notes/what-is-vllm.md`
+- [x] **Install**: pip (with CUDA), Docker image, conda; hardware requirements — `notes/installation.md`, `notes/docker.md`, `cheatsheets/vllm-docker.md`
+- [x] **Quickstart**: `vllm serve <model>` → OpenAI-compatible server in one command — `notes/quickstart.md`
+- [x] **`vllm serve` — key flags**: `--tensor-parallel-size`, `--pipeline-parallel-size`, `--gpu-memory-utilization`, `--max-model-len`, `--max-num-seqs`, `--quantization` (awq, gptq, fp8, bitsandbytes…), `--dtype`, `--enable-prefix-caching`, `--speculative-config`, `--served-model-name`, `--port`, `--api-key` — `notes/serve-flags.md`, `cheatsheets/vllm-serve-flags.md`
+- [x] **Offline inference**: Python `LLM` class, `SamplingParams`, batched generation — `notes/offline-inference.md`
+- [x] **Model support**: which architectures/quants are supported, vision models (Qwen2-VL etc.), audio — `notes/model-support.md`
+- [x] **Multi-GPU**: tensor parallelism in practice, examples (70B on 2×24GB) — `notes/multi-gpu.md`
+- [x] **Benchmarking**: `vllm bench` (throughput, latency, TTFT) — `notes/benchmarking.md`, `cheatsheets/vllm-commands.md`
+- [x] **Metrics & monitoring**: Prometheus `/metrics`, what to watch — `notes/metrics.md`
+- [x] **vLLM vs llama.cpp vs Ollama**: when to use which (cheatsheet) — `cheatsheets/vllm-vs-llamacpp-vs-ollama.md`
 
 ### 06 — Sampling & Prompting `[ ]`
 - [ ] **Sampling parameters**: `temperature`, `top_p`, `top_k`, `min_p`, `typical_p`, `repetition_penalty`, `frequency/presence_penalty`, `seed` — what each does + recommended ranges

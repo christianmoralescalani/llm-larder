@@ -6,3 +6,5 @@ Curated video list for this topic. Format:
 
 ## Videos
 
+- (fill in after watching — candidates: vLLM official talks/tutorials, PagedAttention explainers, "vLLM vs llama.cpp" comparisons, continuous batching deep dives)
+
