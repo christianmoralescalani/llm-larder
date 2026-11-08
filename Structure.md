@@ -30,6 +30,7 @@ Conventions:
 LocalLLM/
 ├── README.md                     # What this repo is + how to navigate
 ├── Structure.md                  # THIS FILE — map of the repo
+├── slide.md                      # Presentation plan: "Running LLMs locally" talk
 ├── 00-foundations/               # Core concepts: tokens, params, architecture, quantization
 ├── 01-huggingface/               # Model hub, searching, downloading, transformers
 ├── 02-hardware-and-vram/         # VRAM/RAM math, GPUs, CPU inference, buying guide
@@ -172,4 +173,5 @@ Core concepts. Everything else assumes this is understood.
 - Cheatsheets: `TL;DR` → tables → examples → "verified on <version>, <date>".
 - Notes: start with a one-paragraph summary, then details, then "my experiments".
 - Slides: `<topic>-deck-v<N>.pptx` (or `.md` if markdown-based slides).
+- `slide.md` (root): presentation plan for the "Running LLMs locally" talk — 10 slides, each with on-slide content, what to say, and the live demo.
 - `Index.md`: one per folder — "start here" + numbered reading order + quick reference; update it when files are added or removed.
