@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocalLLM — Running LLMs Locally</title>
+<!-- Fonts: JetBrains Mono (Google Fonts) — the whole deck is terminal-styled -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   CSS CUSTOM PROPERTIES (THEME)
+   Terminal Green: GitHub-dark + terminal green
+   =========================================== */
+:root {
+    --stage-bg: #010409;
+    --bg: #0d1117;
+    --bg-panel: rgba(1, 4, 9, 0.55);
+    --green: #39d353;
+    --green-dim: #238636;
+    --blue: #58a6ff;
+    --blue-soft: #a5d6ff;
+    --red: #ff7b72;
+    --purple: #d2a8ff;
+    --orange: #ffa657;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --faint: #484f58;
+    --border: #30363d;
+    --font-mono: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur: 0.6s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   (viewport-base.css — full contents)
+   =========================================== */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+    html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+    .deck-viewport { position: static; overflow: visible; background: #fff; }
+    .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+    .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .deck-controls { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; } }
+
+/* ===========================================
+   ATMOSPHERE: CRT scanlines + vignette
+   Lives on the stage so it covers every slide
+   =========================================== */
+.stage-fx { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+.stage-fx .scanlines { position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 4px); }
+.stage-fx .vignette { position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); }
+
+/* ===========================================
+   SLIDE BASE + SHARED CHROME
+   =========================================== */
+.slide { background: var(--bg); font-family: var(--font-mono); color: var(--text); padding: 88px 120px; }
+
+/* Prompt-style section label, top-left */
+.slabel { font-size: 23px; color: var(--muted); letter-spacing: 0.03em; }
+.slabel .p { color: var(--green); font-weight: 700; }
+
+/* Slide title */
+.stitle { margin-top: 30px; font-size: 82px; font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; color: var(--text); }
+.stitle .g { color: var(--green); text-shadow: 0 0 28px rgba(57,211,83,0.3); }
+
+/* Footer chrome: repo + model meta */
+.sfoot { position: absolute; bottom: 44px; left: 120px; right: 120px; display: flex; justify-content: space-between;
+    font-size: 17px; color: var(--faint); letter-spacing: 0.05em; border-top: 1px solid var(--border); padding-top: 18px; }
+.sfoot .repo { color: var(--muted); }
+
+/* ===========================================
+   CONTENT PATTERNS
+   =========================================== */
+
+/* Definition rows: green term + text definition */
+.rows { margin-top: 64px; display: flex; flex-direction: column; gap: 40px; }
+.row { display: flex; align-items: baseline; gap: 40px; font-size: 33px; line-height: 1.4; }
+.row .term { color: var(--green); font-weight: 700; min-width: 430px; letter-spacing: 0.01em; }
+.row .def { color: var(--text); }
+.row .def .m { color: var(--muted); }
+.row .def .b { color: var(--blue); }
+
+/* Numbered steps (getting a model) */
+.step .num { color: var(--green); font-weight: 700; min-width: 90px; font-size: 33px; }
+
+/* Code block with GitHub-dark syntax colors */
+.code { margin-top: 52px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 44px 52px; font-size: 29px; line-height: 1.8; color: var(--text); overflow: hidden; }
+.code .c { color: var(--muted); }        /* comment */
+.code .cmd { color: var(--red); }        /* command */
+.code .fl { color: var(--blue); }        /* flag */
+.code .st { color: var(--blue-soft); }   /* string/path */
+.code .g { color: var(--green); }        /* variable/key */
+.code .fn { color: var(--purple); }      /* function */
+.code .op { color: var(--orange); }      /* operator */
+
+/* Verdict line under a code block */
+.verdict { margin-top: 36px; font-size: 32px; color: var(--text); }
+.verdict .g { color: var(--green); font-weight: 700; }
+
+/* Three-column panels (runtime choice) */
+.cols { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.panel { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-panel); padding: 40px 38px; }
+.panel .name { font-size: 36px; font-weight: 700; color: var(--green); }
+.panel .tag { margin-top: 14px; font-size: 25px; color: var(--text); }
+.panel .when { margin-top: 26px; font-size: 21px; color: var(--muted); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 20px; }
+.panel .when b { color: var(--blue); font-weight: 500; }
+
+/* Flag callout rows (live setup slide) */
+.flags { margin-top: 40px; display: flex; flex-direction: column; gap: 18px; }
+.flag { display: flex; align-items: baseline; gap: 28px; font-size: 25px; }
+.flag .f { color: var(--blue); font-weight: 700; min-width: 330px; }
+.flag .d { color: var(--muted); }
+.flag .d .g { color: var(--green); }
+
+/* Defaults chip */
+.chip { margin-top: 44px; display: inline-block; border: 1px solid var(--green-dim); background: rgba(57,211,83,0.08);
+    border-radius: 8px; padding: 18px 28px; font-size: 26px; color: var(--text); }
+.chip .k { color: var(--muted); }
+.chip .g { color: var(--green); }
+
+/* Tree listing (repo slide) */
+.tree { margin-top: 48px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 36px 48px; font-size: 24px; line-height: 1.75; color: var(--muted); }
+.tree .d { color: var(--green); }
+.tree .f { color: var(--text); }
+
+/* Big closing line */
+.bigline { margin-top: 48px; font-size: 38px; line-height: 1.5; color: var(--text); max-width: 1400px; }
+.bigline .g { color: var(--green); font-weight: 700; }
+
+/* Blinking block cursor */
+.cursor { display: inline-block; width: 22px; height: 40px; background: var(--green); vertical-align: -5px;
+    animation: blink 1.06s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ===========================================
+   TITLE SLIDE: full terminal window
+   =========================================== */
+.title-slide { padding: 0; }
+.termwin { position: absolute; inset: 72px; border: 2px solid var(--faint); border-radius: 12px;
+    background: rgba(1,4,9,0.35); box-shadow: 0 0 80px rgba(57,211,83,0.06), inset 0 0 120px rgba(0,0,0,0.4); }
+.termwin-bar { height: 56px; border-bottom: 1px solid var(--faint); display: flex; align-items: center; gap: 12px; padding: 0 28px; }
+.dot { width: 14px; height: 14px; border-radius: 50%; background: var(--faint); }
+.dot.g { background: var(--green-dim); }
+.termwin-title { margin-left: auto; font-size: 15px; color: var(--muted); letter-spacing: 0.08em; }
+.termwin-body { position: absolute; top: 56px; left: 0; right: 0; bottom: 0; padding: 64px 88px 0; }
+.prompt { font-size: 26px; color: var(--muted); }
+.prompt .user { color: var(--green); font-weight: 700; }
+.prompt .path { color: var(--blue); }
+.prompt .cmd { color: var(--text); }
+.title { margin-top: 72px; font-size: 118px; font-weight: 800; line-height: 1.04; letter-spacing: -0.02em; color: var(--green);
+    text-shadow: 0 0 32px rgba(57,211,83,0.35); }
+.title .off { color: var(--text); text-shadow: none; }
+.subtitle { margin-top: 40px; font-size: 30px; line-height: 1.5; color: var(--text); max-width: 1250px; }
+.subtitle em { font-style: normal; color: var(--green); }
+.meta { position: absolute; bottom: 56px; left: 88px; right: 88px; display: flex; justify-content: space-between;
+    font-size: 18px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid var(--faint); padding-top: 24px; }
+.meta .repo { color: var(--green); }
+
+/* ===========================================
+   REVEAL ANIMATIONS
+   Triggered by .visible on the active slide;
+   .d1–.d8 stagger the children
+   =========================================== */
+.reveal { opacity: 0; transform: translateY(26px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.05s; } .d2 { transition-delay: 0.18s; } .d3 { transition-delay: 0.31s; }
+.d4 { transition-delay: 0.44s; } .d5 { transition-delay: 0.57s; } .d6 { transition-delay: 0.70s; }
+.d7 { transition-delay: 0.83s; } .d8 { transition-delay: 0.96s; }
+
+/* ===========================================
+   PROGRESS INDICATOR + EDIT UI
+   (outside the slide stage)
+   =========================================== */
+.progress { position: fixed; right: 28px; bottom: 22px; z-index: 1000; font-family: var(--font-mono);
+    font-size: 15px; color: var(--faint); letter-spacing: 0.12em; }
+.progress b { color: var(--green); font-weight: 500; }
+
+/* Edit mode: JS-controlled visibility (no CSS ~ selectors) */
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+.edit-toggle { position: fixed; top: 20px; left: 20px; z-index: 10001; font-family: var(--font-mono); font-size: 15px;
+    background: var(--bg); color: var(--green); border: 1px solid var(--green-dim); border-radius: 8px;
+    padding: 10px 14px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+.edit-toggle.active { background: rgba(57,211,83,0.12); }
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+
+        <!-- ================= SLIDE 1 · TITLE ================= -->
+        <section class="slide title-slide active">
+            <div class="termwin">
+                <div class="termwin-bar">
+                    <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="termwin-title">christian@local — llama-server :8080</span>
+                </div>
+                <div class="termwin-body">
+                    <div class="prompt reveal d1"><span class="user">christian@local</span>:<span class="path">~/models</span>$ <span class="cmd">ollama run qwen3.8:27b</span></div>
+                    <h1 class="title reveal d2">RUNNING LLMs<br><span class="off">LOCALLY</span></h1>
+                    <p class="subtitle reveal d3">Notes, cheatsheets, and a working setup for running LLMs <em>on your own hardware</em> — no cloud, no subscription, no per-token bill.</p>
+                </div>
+                <div class="meta reveal d5">
+                    <span class="repo">github.com/christianmoralescalani/llm-larder</span>
+                    <span>model: Qwen3.8-27B · Q4_K_XL · ctx 131072</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 2 · WHY LOCAL ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 02 — why local</div>
+            <h2 class="stitle reveal d2">Four reasons to run it <span class="g">yourself</span></h2>
+            <div class="rows">
+                <div class="row reveal d3"><span class="term">PRIVACY</span><span class="def">data never leaves the machine</span></div>
+                <div class="row reveal d4"><span class="term">COST</span><span class="def">no subscription, no per-token billing</span></div>
+                <div class="row reveal d5"><span class="term">OFFLINE</span><span class="def">works on a plane, in a cabin, anywhere</span></div>
+                <div class="row reveal d6"><span class="term">CONTROL</span><span class="def">your hardware, your parameters, your model</span></div>
+            </div>
+            <div class="sfoot"><span class="repo">llm-larder</span><span>02 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 3 · FOUR CONCEPTS ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 03 — foundations</div>
+            <h2 class="stitle reveal d2">Four words carry the <span class="g">whole talk</span></h2>
+            <div class="rows">
+                <div class="row reveal d3"><span class="term">token</span><span class="def">the unit of everything: text, context, speed, cost</span></div>
+                <div class="row reveal d4"><span class="term">parameter</span><span class="def">what <span class="b">"7B"</span> / <span class="b">"27B"</span> means: the size of the model</span></div>
+                <div class="row reveal d5"><span class="term">quantization</span><span class="def">compressing weights <span class="m">(Q4_K_M, Q8_0…)</span> so big models fit</span></div>
+                <div class="row reveal d6"><span class="term">KV cache</span><span class="def">the memory that grows with context — and eats VRAM</span></div>
+            </div>
+            <div class="sfoot"><span class="repo">llm-larder · 00-foundations/</span><span>03 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 4 · THE FORMULA ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 04 — will it fit?</div>
+            <h2 class="stitle reveal d2">The <span class="g">only formula</span> you need</h2>
+            <div class="code reveal d4">
+                <span class="g">VRAM</span> <span class="op">=</span> weights <span class="op">+</span> KV cache <span class="op">+</span> overhead<br>
+                <span class="c">#</span> <span class="g">    </span> <span class="op">=</span> params × bytes-per-weight <span class="op">+</span> <span class="fn">f</span>(context) <span class="op">+</span> ~1 GB<br>
+                <br>
+                <span class="c"># worked example</span><br>
+                Qwen3.8-27B <span class="fl">@ Q4_K_XL</span> <span class="op">≈</span> <span class="g">16 GB</span> weights <span class="op">+</span> ~1–2 GB KV <span class="fl">@ 32k</span>
+            </div>
+            <div class="verdict reveal d6"><span class="g">→</span> fits a 16–24 GB card. If it fits, it's fast. If it doesn't, you hit the CPU-offload speed cliff.</div>
+            <div class="sfoot"><span class="repo">llm-larder · 02-hardware-and-vram/</span><span>04 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 5 · GETTING A MODEL ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 05 — getting a model</div>
+            <h2 class="stitle reveal d2">Search → inspect → <span class="g">download</span></h2>
+            <div class="rows">
+                <div class="row step reveal d3"><span class="num">01</span><span class="def"><b style="color:var(--text)">search</b> <span class="m">—</span> task + size + quant: <span class="b">"27B · Q4 · GGUF · instruct"</span></span></div>
+                <div class="row step reveal d4"><span class="num">02</span><span class="def"><b style="color:var(--text)">inspect</b> <span class="m">—</span> files, quant, context <span class="m">*before*</span> the 15 GB download</span></div>
+                <div class="row step reveal d5"><span class="num">03</span><span class="def"><b style="color:var(--text)">download</b> <span class="m">—</span> <span class="b">hf download &lt;repo&gt; &lt;file&gt;</span> <span class="m">— single file, resumable</span></span></div>
+            </div>
+            <div class="verdict reveal d6"><span class="m" style="color:var(--muted); font-size:27px;">The Hub is the Docker Hub for models. GGUF is the local format.</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 01-huggingface/</span><span>05 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 6 · CHOOSING A RUNTIME ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 06 — choosing a runtime</div>
+            <h2 class="stitle reveal d2">Three runtimes, <span class="g">one API</span></h2>
+            <div class="cols">
+                <div class="panel reveal d3">
+                    <div class="name">ollama</div>
+                    <div class="tag">fastest to start</div>
+                    <div class="when">pick when: <b>personal use, few users</b> — one command, zero config</div>
+                </div>
+                <div class="panel reveal d4">
+                    <div class="name">llama.cpp</div>
+                    <div class="tag">most control</div>
+                    <div class="when">pick when: <b>every flag, GGUF, vision</b> — the deepest-control runtime</div>
+                </div>
+                <div class="panel reveal d5">
+                    <div class="name">vllm</div>
+                    <div class="tag">max throughput</div>
+                    <div class="when">pick when: <b>many concurrent users</b> — PagedAttention, continuous batching</div>
+                </div>
+            </div>
+            <div class="verdict reveal d7">all three speak <span class="g">OpenAI-compatible</span> — your client code doesn't change when you switch</div>
+            <div class="sfoot"><span class="repo">llm-larder · 03-ollama/ · 04-llama-cpp/ · 05-vllm/</span><span>06 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 7 · LIVE: DOCKER RUN → CHAT ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 07 — live: docker run → chat</div>
+            <h2 class="stitle reveal d2">The <span class="g">actual</span> setup</h2>
+            <div class="code reveal d4" style="margin-top:40px; font-size:27px; line-height:1.7; padding:36px 48px;">
+                <span class="cmd">docker run</span> -d <span class="fl">--gpus all</span> <span class="fl">-p</span> <span class="st">8080:8080</span> <span class="fl">-v</span> <span class="st">./models:/models</span> \<br>
+                <span class="st">ghcr.io/ggml-org/llama.cpp:server-cuda</span> \<br>
+                <span class="fl">-m</span> <span class="st">/models/Qwen3.8-27B-UD-Q4_K_XL.gguf</span> <span class="fl">--mmproj</span> <span class="st">…</span> \<br>
+                <span class="fl">--reasoning on</span> <span class="fl">-c</span> <span class="g">131072</span> <span class="fl">--flash-attn</span>
+            </div>
+            <div class="flags reveal d6">
+                <div class="flag"><span class="f">Q4_K_XL</span><span class="d">the quant — why it <span class="g">fits</span> (slide 4)</span></div>
+                <div class="flag"><span class="f">-c 131072</span><span class="d">context — the KV cache that <span class="g">eats VRAM</span> (slide 3)</span></div>
+                <div class="flag"><span class="f">--reasoning on</span><span class="d">it's a <span class="g">thinking model</span> — the budget is a dial (slide 8)</span></div>
+            </div>
+            <div class="sfoot"><span class="repo">llm-larder · 04-llama-cpp/ · 08-apis-and-clients/</span><span>07 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 8 · THE DIALS ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 08 — the dials</div>
+            <h2 class="stitle reveal d2">Sampling is the <span class="g">quality dial</span></h2>
+            <div class="rows">
+                <div class="row reveal d3"><span class="term">temperature</span><span class="def">randomness — lower = more focused</span></div>
+                <div class="row reveal d4"><span class="term">top_p · top_k · min_p</span><span class="def">how the candidate set gets cut</span></div>
+                <div class="row reveal d5"><span class="term">reasoning budget</span><span class="def">thinking <span class="m">on / off / limited</span> — more thinking = better, slower</span></div>
+            </div>
+            <div class="chip reveal d7"><span class="k">working defaults:</span> <span class="g">--temp 0.6 --top-p 0.95 --top-k 20</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 06-sampling-and-prompting/</span><span>08 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 9 · BEYOND TEXT ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 09 — beyond text</div>
+            <h2 class="stitle reveal d2">Same runtimes, same API — <span class="g">new model files</span></h2>
+            <div class="rows">
+                <div class="row reveal d3"><span class="term">vision</span><span class="def">image → visual tokens; an image <span class="b">costs context</span> <span class="m">(the --mmproj flag from slide 7)</span></span></div>
+                <div class="row reveal d4"><span class="term">embeddings</span><span class="def">the RAG building block — text → vectors</span></div>
+                <div class="row reveal d5"><span class="term">audio</span><span class="def">Whisper-family transcription</span></div>
+            </div>
+            <div class="verdict reveal d6">same formula, same flags — <span class="g">just different model files</span>. The one new idea: images eat VRAM.</div>
+            <div class="sfoot"><span class="repo">llm-larder · 07-multimodal-vision/</span><span>09 / 10</span></div>
+        </section>
+
+        <!-- ================= SLIDE 10 · USE THE REPO + Q&A ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 10 — keep going</div>
+            <h2 class="stitle reveal d2">The repo is the <span class="g">next step</span></h2>
+            <div class="tree reveal d4">
+                <span class="d">llm-larder/</span><br>
+                ├── <span class="d">00-foundations/</span> … <span class="d">09-glossary-and-links/</span> <span class="m" style="color:var(--faint)">· 10 folders</span><br>
+                └── each folder: <span class="f">notes/</span> · <span class="f">cheatsheets/</span> · <span class="f">docs/</span> · <span class="f">videos.md</span> · <span class="f">Index.md</span>
+            </div>
+            <div class="bigline reveal d6">New to a topic? Open its <span class="g">Index.md</span> — it says what to read first, and in what order<span class="cursor"></span></div>
+            <div class="sfoot"><span class="repo">github.com/christianmoralescalani/llm-larder · Q&amp;A</span><span>10 / 10</span></div>
+        </section>
+    </main>
+
+    <!-- Progress indicator (outside the stage) -->
+    <div class="progress" id="progress"></div>
+
+    <!-- Inline editing UI -->
+    <div class="edit-hotzone" id="editHotzone"></div>
+    <button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏️ edit</button>
+</div>
+
+<script>
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   Keyboard / touch / wheel navigation +
+   fixed-stage scaling + progress indicator
+   =========================================== */
+class SlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.current = 0;
+        this.stage = document.getElementById('deckStage');
+        this.progress = document.getElementById('progress');
+        this.wheelLock = 0;
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.showSlide(0);
+    }
+
+    /* Scale the 1920×1080 stage to fit the viewport (letterbox) */
+    setupStageScale() {
+        const scale = () => {
+            const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * factor) / 2;
+            const y = (window.innerHeight - 1080 * factor) / 2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.target.isContentEditable) return; // don't hijack keys while editing
+            switch (e.key) {
+                case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+                    e.preventDefault(); this.next(); break;
+                case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+                    e.preventDefault(); this.prev(); break;
+                case 'Home': e.preventDefault(); this.showSlide(0); break;
+                case 'End': e.preventDefault(); this.showSlide(this.slides.length - 1); break;
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+        document.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 60) (dx < 0 ? this.next() : this.prev());
+        });
+    }
+
+    setupWheelNav() {
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - this.wheelLock < 650) return; // throttle
+            if (Math.abs(e.deltaY) < 30) return;
+            this.wheelLock = now;
+            (e.deltaY > 0 ? this.next() : this.prev());
+        }, { passive: true });
+    }
+
+    next() { this.showSlide(this.current + 1); }
+    prev() { this.showSlide(this.current - 1); }
+
+    showSlide(index) {
+        this.current = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides.forEach((s, i) => {
+            s.classList.toggle('active', i === this.current);
+            s.classList.toggle('visible', i === this.current);
+        });
+        const n = String(this.current + 1).padStart(2, '0');
+        const t = String(this.slides.length).padStart(2, '0');
+        this.progress.innerHTML = `<b>${n}</b> / ${t}`;
+    }
+}
+
+/* ===========================================
+   INLINE EDITOR
+   E key / hover top-left / click the button.
+   Autosaves the stage to localStorage;
+   Ctrl+S downloads the edited file.
+   =========================================== */
+class InlineEditor {
+    constructor() {
+        this.active = false;
+        this.key = 'local-llm-deck-v2';
+        this.stage = document.getElementById('deckStage');
+        this.toggleBtn = document.getElementById('editToggle');
+        this.hotzone = document.getElementById('editHotzone');
+        this.restore();
+        this.wireUI();
+        document.addEventListener('keydown', (e) => {
+            if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable) this.toggle();
+            if ((e.ctrlKey || e.metaKey) && e.key === 's' && this.active) { e.preventDefault(); this.exportFile(); }
+        });
+    }
+
+    wireUI() {
+        this.toggleBtn.addEventListener('click', () => this.toggle());
+        this.hotzone.addEventListener('click', () => this.toggle());
+        let hideTimeout = null;
+        const show = () => { clearTimeout(hideTimeout); this.toggleBtn.classList.add('show'); };
+        const hide = () => { hideTimeout = setTimeout(() => { if (!this.active) this.toggleBtn.classList.remove('show'); }, 400); };
+        this.hotzone.addEventListener('mouseenter', show);
+        this.hotzone.addEventListener('mouseleave', hide);
+        this.toggleBtn.addEventListener('mouseenter', show);
+        this.toggleBtn.addEventListener('mouseleave', hide);
+    }
+
+    toggle() {
+        this.active = !this.active;
+        this.stage.querySelectorAll('.slide').forEach(s => s.setAttribute('contenteditable', this.active ? 'true' : 'false'));
+        this.toggleBtn.classList.toggle('active', this.active);
+        if (this.active) this.save();
+    }
+
+    save() { try { localStorage.setItem(this.key, this.stage.innerHTML); } catch (e) {} }
+
+    restore() {
+        try {
+            const saved = localStorage.getItem(this.key);
+            if (saved) this.stage.innerHTML = saved;
+        } catch (e) {}
+    }
+
+    exportFile() {
+        const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'local-llm-deck-v1.html';
+        a.click();
+    }
+}
+
+/* Editor first (restores saved content), then the controller binds the final slides */
+const editor = new InlineEditor();
+new SlidePresentation();
+</script>
+</body>
+</html>
