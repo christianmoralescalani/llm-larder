@@ -16,6 +16,7 @@ Every topic folder uses the same 5 content types, so navigation is always predic
 | `slides/`           | Slide decks (diapos) for presentations                                | `.pptx` / `.pdf` / `.md` |
 | `docs/`             | External docs, official references, saved PDFs, API specs             | links / `.pdf`    |
 | `videos.md`         | Curated video list (YouTube etc.) with timestamps and personal notes  | `.md`             |
+| `Index.md`          | How to read the folder: start here, reading order, what to skip       | `.md`             |
 
 Conventions:
 - One file = one subtopic (e.g. `cheatsheets/llama-server-flags.md`).
@@ -171,3 +172,4 @@ Core concepts. Everything else assumes this is understood.
 - Cheatsheets: `TL;DR` → tables → examples → "verified on <version>, <date>".
 - Notes: start with a one-paragraph summary, then details, then "my experiments".
 - Slides: `<topic>-deck-v<N>.pptx` (or `.md` if markdown-based slides).
+- `Index.md`: one per folder — "start here" + numbered reading order + quick reference; update it when files are added or removed.
