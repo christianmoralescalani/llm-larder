@@ -37,12 +37,11 @@ LocalLLM/
 ├── 05-vllm/                      # Install, vllm serve, offline inference, args
 ├── 06-sampling-and-prompting/    # Sampling params, chat templates, perf metrics
 ├── 07-multimodal-vision/         # Vision models, how they work, running them locally
-├── 08-model-families/            # Llama, Qwen, Mistral, Gemma, DeepSeek… how to choose
-├── 09-apis-and-clients/          # OpenAI-compatible API, curl/Python, frontends
-├── 10-other-runtimes/            # LM Studio, text-gen-webui, LocalAI, SGLang, etc.
-├── 11-deployment/                # Docker, LAN exposure, systemd, monitoring, security
-├── 12-troubleshooting/           # Common errors, OOM, CUDA issues, FAQ
-└── 13-glossary-and-links/        # Glossary + curated external resources
+├── 08-apis-and-clients/          # OpenAI-compatible API, curl/Python, frontends
+├── 09-other-runtimes/            # LM Studio, text-gen-webui, LocalAI, SGLang, etc.
+├── 10-deployment/                # Docker, LAN exposure, systemd, monitoring, security
+├── 11-troubleshooting/           # Common errors, OOM, CUDA issues, FAQ
+└── 12-glossary-and-links/        # Glossary + curated external resources
 ```
 
 ---
@@ -143,24 +142,14 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Audio models (bonus)**: Whisper / faster-whisper / whisper.cpp, Qwen2-Audio, local speech pipeline — `notes/audio-models.md`
 - [x] **Embedding models (bonus)**: what they are, nomic-embed, bge, Qwen3-Embedding, RAG in 5 steps — `notes/embedding-models.md`, `cheatsheets/audio-embeddings.md`
 
-### 08 — Model Families `[ ]`
-- [ ] **Llama 3 / 3.1 / 3.2 / 3.3 (Meta)**: sizes, context, licenses
-- [ ] **Qwen 2.5 / 3 (Alibaba)**: dense + MoE, tool use, why popular
-- [ ] **Mistral / Mixtral (Mistral AI)**: sizes, Apache license
-- [ ] **Gemma 3 (Google)**: sizes, vision, license
-- [ ] **DeepSeek V3 / R1**: MoE + MTP, reasoning, running them (VRAM reality check)
-- [ ] **Small models**: Phi, SmolLM, Gemma small — for laptops/RAG
-- [ ] **Choosing a model**: size vs task matrix (coding, chat, RAG, agents), license constraints
-- [ ] **Cheatsheet**: "best local model per VRAM tier" table (8 / 12 / 16 / 24 / 48 GB)
-
-### 09 — APIs & Clients `[ ]`
+### 08 — APIs & Clients `[ ]`
 - [ ] **OpenAI-compatible API**: why it's the de-facto standard, endpoints (`/v1/chat/completions`, `/v1/completions`, `/v1/models`)
 - [ ] **curl examples**: chat, streaming (SSE), JSON mode
 - [ ] **Python**: `openai` client pointed at local base_url, streaming, async
 - [ ] **Frontends**: Open WebUI, AnythingLLM, LibreChat, SillyTavern — install + point at Ollama/llama.cpp/vLLM
 - [ ] **MCP servers (bonus)**: what MCP is, running local MCP servers with your local LLM
 
-### 10 — Other Runtimes `[ ]`
+### 09 — Other Runtimes `[ ]`
 - [ ] **LM Studio**: GUI, model search/download, server mode (quick start for non-terminal users)
 - [ ] **text-generation-webui**: features, model management, extensions
 - [ ] **LocalAI**: OpenAI drop-in replacement, multi-model
@@ -169,7 +158,7 @@ Core concepts. Everything else assumes this is understood.
 - [ ] **Hugging Face `transformers`**: quick tests, prototyping, when it's enough
 - [ ] **Comparison table**: runtime × (ease, speed, features, hardware support)
 
-### 11 — Deployment `[ ]`
+### 10 — Deployment `[ ]`
 - [ ] **Docker**: Ollama / llama.cpp / vLLM images, docker-compose examples, volume for models
 - [ ] **systemd services**: running llama-server / vLLM as services with restart
 - [ ] **Exposing on LAN**: `OLLAMA_HOST=0.0.0.0`, reverse proxy, why you should not expose to the internet
@@ -177,7 +166,7 @@ Core concepts. Everything else assumes this is understood.
 - [ ] **Monitoring**: `nvidia-smi`, `nvtop`, vLLM `/metrics`, Ollama `ps`, log rotation
 - [ ] **Auto-loading models**: keep-alive, model switching, warmup
 
-### 12 — Troubleshooting `[ ]`
+### 11 — Troubleshooting `[ ]`
 - [ ] **Out of memory (CUDA OOM)**: diagnosis, fixes (quant, less context, less GPU layers, smaller model)
 - [ ] **Slow inference**: is it prefill or decode? RAM vs VRAM, `--n-gpu-layers` mistakes, CPU offload
 - [ ] **CUDA / driver errors**: version mismatches, `nvidia-smi` checks, container issues
@@ -187,7 +176,7 @@ Core concepts. Everything else assumes this is understood.
 - [ ] **FAQ**: accumulated Q&A from real sessions
 - [ ] **Debugging workflow**: what to check first (checklist)
 
-### 13 — Glossary & Links `[ ]`
+### 12 — Glossary & Links `[ ]`
 - [ ] **Glossary**: token, parameter, quant, KV cache, prefill, decode, TTFT, MoE, MTP, GGUF, LoRA, speculative decoding, context window, embedding, chat template, tensor parallelism…
 - [ ] **Curated links**: official docs (HF, Ollama, llama.cpp, vLLM), best tutorials, active community resources
 - [ ] **Video playlists**: master list of all `videos.md` entries across the repo
@@ -201,10 +190,10 @@ Core concepts. Everything else assumes this is understood.
 3. **03 Ollama** (easiest runtime — get something running fast)
 4. **04 llama.cpp** (deepest control — GGUF workflow)
 5. **05 vLLM** (serving performance)
-6. **06 Sampling** → **07 Vision** → **08 Model families**
-7. **09 APIs & clients** → **10 Other runtimes**
-8. **11 Deployment** → **12 Troubleshooting** (fills in as problems appear)
-9. **13 Glossary & links** (continuous)
+6. **06 Sampling** → **07 Vision**
+7. **08 APIs & clients** → **09 Other runtimes**
+8. **10 Deployment** → **11 Troubleshooting** (fills in as problems appear)
+9. **12 Glossary & links** (continuous)
 
 ## 5. Naming conventions
 

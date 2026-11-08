@@ -14,12 +14,11 @@ Notes, videos, slides, cheatsheets, and docs about **running LLMs locally**.
 | vLLM (serving) | [`05-vllm/`](05-vllm/) |
 | Sampling & prompting | [`06-sampling-and-prompting/`](06-sampling-and-prompting/) |
 | Multimodal / vision models | [`07-multimodal-vision/`](07-multimodal-vision/) |
-| Model families & how to choose | [`08-model-families/`](08-model-families/) |
-| APIs & clients (OpenAI-compatible, frontends) | [`09-apis-and-clients/`](09-apis-and-clients/) |
-| Other runtimes (LM Studio, SGLang, …) | [`10-other-runtimes/`](10-other-runtimes/) |
-| Deployment (Docker, systemd, LAN, security) | [`11-deployment/`](11-deployment/) |
-| Troubleshooting & FAQ | [`12-troubleshooting/`](12-troubleshooting/) |
-| Glossary & curated links | [`13-glossary-and-links/`](13-glossary-and-links/) |
+| APIs & clients (OpenAI-compatible, frontends) | [`08-apis-and-clients/`](08-apis-and-clients/) |
+| Other runtimes (LM Studio, SGLang, …) | [`09-other-runtimes/`](09-other-runtimes/) |
+| Deployment (Docker, systemd, LAN, security) | [`10-deployment/`](10-deployment/) |
+| Troubleshooting & FAQ | [`11-troubleshooting/`](11-troubleshooting/) |
+| Glossary & curated links | [`12-glossary-and-links/`](12-glossary-and-links/) |
 
 ## How to navigate
 

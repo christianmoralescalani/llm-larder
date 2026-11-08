@@ -78,7 +78,7 @@ The path in `FROM` is resolved **inside the container** — the file must be on 
 ## Exposing the API
 
 - Local: `-p 11434:11434` → `http://localhost:11434` on the host.
-- LAN: the image already binds `0.0.0.0` inside the container; the host `-p` mapping exposes it. Firewall it. **Ollama has no built-in auth** — anyone who can reach the port can run your models (and use your registry keys if you've signed in). Don't expose 11434 to the internet; put an authed reverse proxy in front (see [11-deployment](../../11-deployment/)).
+- LAN: the image already binds `0.0.0.0` inside the container; the host `-p` mapping exposes it. Firewall it. **Ollama has no built-in auth** — anyone who can reach the port can run your models (and use your registry keys if you've signed in). Don't expose 11434 to the internet; put an authed reverse proxy in front (see [10-deployment](../../10-deployment/)).
 - Different host port: `-p 1234:11434` → `http://localhost:1234`.
 - Container-to-container: on the same compose network, use `http://ollama:11434` (service name) — no host port needed.
 

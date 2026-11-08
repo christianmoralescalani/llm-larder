@@ -203,7 +203,7 @@ curl http://localhost:11434/api/embed -d '{"model": "nomic-embed-text", "input":
 
 ## OpenAI-compatible layer
 
-Ollama also serves `/v1/chat/completions`, `/v1/completions`, `/v1/models` (and an Anthropic-compatible `/v1/messages`) — so any OpenAI client works with `base_url=http://localhost:11434/v1`. Full treatment in [09-apis-and-clients](../../09-apis-and-clients/).
+Ollama also serves `/v1/chat/completions`, `/v1/completions`, `/v1/models` (and an Anthropic-compatible `/v1/messages`) — so any OpenAI client works with `base_url=http://localhost:11434/v1`. Full treatment in [08-apis-and-clients](../../08-apis-and-clients/).
 
 ```bash
 curl http://localhost:11434/v1/chat/completions -d '{

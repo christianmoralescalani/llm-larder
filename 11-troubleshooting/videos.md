@@ -1,4 +1,4 @@
-# Videos — 13-glossary-and-links
+# Videos — 11-troubleshooting
 
 Curated video list for this topic. Format:
 

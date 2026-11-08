@@ -1,4 +1,4 @@
-# Videos — 09-apis-and-clients
+# Videos — 12-glossary-and-links
 
 Curated video list for this topic. Format:
 
