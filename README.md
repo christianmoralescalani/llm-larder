@@ -22,7 +22,7 @@ Notes, videos, slides, cheatsheets, and docs about **running LLMs locally**.
 - **Start here if you're new**: [Structure.md](Structure.md) → follow the roadmap in section 4.
 - **New to a topic?** → open that folder's `Index.md` — it says what to read first and in what order.
 - **Need a command fast?** → look in the topic's `cheatsheets/` folder.
-- **Learning a topic deeply?** → `notes/` + `videos.md` + `slides/`.
+- **Learning a topic deeply?** → `notes/` + `videos.md` (+ `slides/` when a deck exists).
 - **Official references** → `docs/` in each topic.
 
 ## Suggested learning path

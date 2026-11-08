@@ -1,0 +1,58 @@
+docker run \
+  --gpus all \
+  -v ~/Downloads/models:/models \
+  -p 8080:8080 \
+  ghcr.io/ggml-org/llama.cpp:server-cuda \
+  --model /models/Qwen3.8-27B-UD-Q4_K_XL.gguf \
+  --mmproj /models/mmproj-BF16.gguf \
+  --model-draft /models/mtp-Qwen3.8-27B-Q4_0.gguf \
+  --mmproj-device none \
+  --host 0.0.0.0 \
+  --port 8080 \
+  --ctx-size 131072 \
+  --n-gpu-layers -1 \
+  --flash-attn on \
+  --cache-type-k q4_0 \
+  --cache-type-v q4_0 \
+  --split-mode layer \
+  --main-gpu 0 \
+  --spec-type draft-mtp \
+  --spec-draft-n-max 2 \
+  --jinja \
+  --temp 0.6 \
+  --top-p 0.95 \
+  --top-k 20 \
+  --min-p 0.0 \
+  --parallel 1 \
+  --reasoning on \
+  --alias qwen3.8   
+
+
+
+
+  --2--fast
+  docker run \
+  --gpus all \
+  -v ~/Downloads/models:/models \
+  -p 8080:8080 \
+  ghcr.io/ggml-org/llama.cpp:server-cuda \
+  --model /models/Qwen3.8-27B-UD-Q4_K_XL.gguf \
+  --mmproj /models/mmproj-BF16.gguf \
+  --mmproj-device none \
+  --host 0.0.0.0 \
+  --port 8080 \
+  --ctx-size 262144 \
+  --n-gpu-layers -1 \
+  --flash-attn on \
+  --cache-type-k q4_0 \
+  --cache-type-v q4_0 \
+  --split-mode layer \
+  --main-gpu 0 \
+  --jinja \
+  --temp 0.6 \
+  --top-p 0.95 \
+  --top-k 20 \
+  --min-p 0.0 \
+  --parallel 1 \
+  --reasoning on \
+  --alias qwen3.8   

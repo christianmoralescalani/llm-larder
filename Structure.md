@@ -7,7 +7,7 @@
 
 ## 1. Content types
 
-Every topic folder uses the same 5 content types, so navigation is always predictable:
+Every topic folder can use the same 5 content types, so navigation is always predictable. Subfolders are created when the first file is added — empty folders are not kept:
 
 | Folder / file       | What goes there                                                        | Format            |
 |---------------------|------------------------------------------------------------------------|-------------------|
