@@ -135,13 +135,13 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Performance metrics**: TTFT (time to first token), tokens/sec decode, prompt processing speed, how to measure them — `notes/performance-metrics.md`, `cheatsheets/perf-metrics.md`
 - [x] **Prompting basics for local models**: system prompt design, few-shot, structured output, why local models need clearer instructions — `notes/prompting-basics.md`
 
-### 07 — Multimodal & Vision `[ ]`
-- [ ] **How vision LLMs work**: image → patches → visual tokens, how many "tokens" an image costs, impact on context
-- [ ] **Model landscape**: LLaVA, Qwen2.5-VL / Qwen3-VL, Gemma 3, Llama 3.2 Vision, MiniCPM-V — sizes and capabilities
-- [ ] **Running vision models**: in Ollama (image flag), llama.cpp (`--image`), vLLM (multimodal input) — with working examples
-- [ ] **VRAM for vision models**: why they need more headroom
-- [ ] **Audio models (bonus)**: Whisper / Qwen2-Audio basics, running locally
-- [ ] **Embedding models (bonus)**: what they are, `nomic-embed`, `bge`, use for RAG
+### 07 — Multimodal & Vision `[x]`
+- [x] **How vision LLMs work**: image → patches → visual tokens, how many "tokens" an image costs, impact on context — `notes/how-vision-llms-work.md`, `cheatsheets/image-token-cost.md`
+- [x] **Model landscape**: LLaVA, Qwen2.5-VL / Qwen3-VL, Gemma 3, Llama 3.2 Vision, MiniCPM-V — sizes and capabilities — `notes/vision-models.md`, `cheatsheets/vision-models.md`
+- [x] **Running vision models**: in Ollama (image flag), llama.cpp (`--image` + mmproj), vLLM (multimodal input) — with working examples — `notes/running-vision-models.md`
+- [x] **VRAM for vision models**: why they need more headroom (encoder weights, visual KV, activations) — `notes/vision-vram.md`
+- [x] **Audio models (bonus)**: Whisper / faster-whisper / whisper.cpp, Qwen2-Audio, local speech pipeline — `notes/audio-models.md`
+- [x] **Embedding models (bonus)**: what they are, nomic-embed, bge, Qwen3-Embedding, RAG in 5 steps — `notes/embedding-models.md`, `cheatsheets/audio-embeddings.md`
 
 ### 08 — Model Families `[ ]`
 - [ ] **Llama 3 / 3.1 / 3.2 / 3.3 (Meta)**: sizes, context, licenses
