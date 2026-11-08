@@ -142,12 +142,12 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Audio models (bonus)**: Whisper / faster-whisper / whisper.cpp, Qwen2-Audio, local speech pipeline — `notes/audio-models.md`
 - [x] **Embedding models (bonus)**: what they are, nomic-embed, bge, Qwen3-Embedding, RAG in 5 steps — `notes/embedding-models.md`, `cheatsheets/audio-embeddings.md`
 
-### 08 — APIs & Clients `[ ]`
-- [ ] **OpenAI-compatible API**: why it's the de-facto standard, endpoints (`/v1/chat/completions`, `/v1/completions`, `/v1/models`)
-- [ ] **curl examples**: chat, streaming (SSE), JSON mode
-- [ ] **Python**: `openai` client pointed at local base_url, streaming, async
-- [ ] **Frontends**: Open WebUI, AnythingLLM, LibreChat, SillyTavern — install + point at Ollama/llama.cpp/vLLM
-- [ ] **MCP servers (bonus)**: what MCP is, running local MCP servers with your local LLM
+### 08 — APIs & Clients `[x]`
+- [x] **OpenAI-compatible API**: why it's the de-facto standard, endpoints, per-runtime support matrix + gotchas — `notes/openai-compatible-api.md`, `cheatsheets/openai-api.md`
+- [x] **curl examples**: health, chat, streaming (SSE), JSON mode, embeddings, tools, images — `notes/curl-cookbook.md`, `cheatsheets/curl-cookbook.md`
+- [x] **Python**: `openai` client pointed at local base_url, streaming, async, multi-runtime config — `notes/python-clients.md`
+- [x] **Frontends**: Open WebUI, AnythingLLM, LibreChat, SillyTavern — install + point at Ollama/llama.cpp/vLLM — `notes/frontends.md`, `cheatsheets/frontends.md`
+- [x] **MCP servers (bonus)**: what MCP is, running local MCP servers with your local LLM, writing your own — `notes/mcp-servers.md`
 
 ### 09 — Other Runtimes `[ ]`
 - [ ] **LM Studio**: GUI, model search/download, server mode (quick start for non-terminal users)
