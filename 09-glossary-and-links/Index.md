@@ -10,7 +10,7 @@
 
 ## Contents
 
-- `videos.md` — curated videos for this section *(currently empty — the master list will aggregate the other 9 folders' video lists)*
+- [videos.md](videos.md) — curated videos for this section *(currently empty — the master list will aggregate the other 9 folders' video lists)*
 
 ## Planned
 

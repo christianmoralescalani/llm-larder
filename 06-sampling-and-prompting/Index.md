@@ -4,23 +4,23 @@
 
 ## Start here
 
-`notes/sampling-parameters.md` — the knobs (`temperature`, `top_p`, `top_k`, `min_p`, …) and what each one actually does.
+[notes/sampling-parameters.md](notes/sampling-parameters.md) — the knobs (`temperature`, `top_p`, `top_k`, `min_p`, …) and what each one actually does.
 
 ## Reading order
 
-1. `notes/sampling-parameters.md` — every knob, recommended ranges, what breaks
-2. `notes/reasoning-models.md` — thinking models: budgets, `reasoning_content`, parsing *(you're running one — Qwen3.8)*
-3. `notes/chat-templates.md` — how the prompt is assembled, `--jinja`, what a wrong template does
-4. `notes/performance-metrics.md` — TTFT, tokens/sec, prompt processing — and how to measure them
-5. `notes/prompting-basics.md` — system prompts, few-shot, structured output for local models
+1. [notes/sampling-parameters.md](notes/sampling-parameters.md) — every knob, recommended ranges, what breaks
+2. [notes/reasoning-models.md](notes/reasoning-models.md) — thinking models: budgets, `reasoning_content`, parsing *(you're running one — Qwen3.8)*
+3. [notes/chat-templates.md](notes/chat-templates.md) — how the prompt is assembled, `--jinja`, what a wrong template does
+4. [notes/performance-metrics.md](notes/performance-metrics.md) — TTFT, tokens/sec, prompt processing — and how to measure them
+5. [notes/prompting-basics.md](notes/prompting-basics.md) — system prompts, few-shot, structured output for local models
 
 ## Quick reference (cheatsheets)
 
-- `cheatsheets/sampling-params.md` — the knobs + ranges, one page
-- `cheatsheets/reasoning-controls.md` — thinking on/off/budget per runtime
-- `cheatsheets/perf-metrics.md` — what to measure, good numbers, how
+- [cheatsheets/sampling-params.md](cheatsheets/sampling-params.md) — the knobs + ranges, one page
+- [cheatsheets/reasoning-controls.md](cheatsheets/reasoning-controls.md) — thinking on/off/budget per runtime
+- [cheatsheets/perf-metrics.md](cheatsheets/perf-metrics.md) — what to measure, good numbers, how
 
 ## Sources & videos
 
-- `docs/references.md` — official docs
-- `videos.md` — curated videos
+- [docs/references.md](docs/references.md) — official docs
+- [videos.md](videos.md) — curated videos

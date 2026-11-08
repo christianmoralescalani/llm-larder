@@ -4,23 +4,23 @@
 
 ## Start here
 
-`notes/openai-compatible-api.md` — why this shape won, what works on each runtime, and the gotchas that bite when you switch.
+[notes/openai-compatible-api.md](notes/openai-compatible-api.md) — why this shape won, what works on each runtime, and the gotchas that bite when you switch.
 
 ## Reading order
 
-1. `notes/openai-compatible-api.md` — the common ground: endpoints, support matrix, gotchas
-2. `notes/curl-cookbook.md` — health, chat, SSE streaming, JSON mode, tools, images — no SDK
-3. `notes/python-clients.md` — the `openai` SDK: sync, async, multi-runtime config, reusable glue
-4. `notes/frontends.md` — Open WebUI, AnythingLLM, LibreChat, SillyTavern: install + point at your runtime
-5. `notes/mcp-servers.md` — *(bonus)* MCP: giving your local LLM tools, writing your own server
+1. [notes/openai-compatible-api.md](notes/openai-compatible-api.md) — the common ground: endpoints, support matrix, gotchas
+2. [notes/curl-cookbook.md](notes/curl-cookbook.md) — health, chat, SSE streaming, JSON mode, tools, images — no SDK
+3. [notes/python-clients.md](notes/python-clients.md) — the `openai` SDK: sync, async, multi-runtime config, reusable glue
+4. [notes/frontends.md](notes/frontends.md) — Open WebUI, AnythingLLM, LibreChat, SillyTavern: install + point at your runtime
+5. [notes/mcp-servers.md](notes/mcp-servers.md) — *(bonus)* MCP: giving your local LLM tools, writing your own server
 
 ## Quick reference (cheatsheets)
 
-- `cheatsheets/openai-api.md` — base_url/model per runtime + endpoint & feature matrices
-- `cheatsheets/curl-cookbook.md` — every recipe, copy-paste ready
-- `cheatsheets/frontends.md` — the four frontends: install commands, ports, choosing table
+- [cheatsheets/openai-api.md](cheatsheets/openai-api.md) — base_url/model per runtime + endpoint & feature matrices
+- [cheatsheets/curl-cookbook.md](cheatsheets/curl-cookbook.md) — every recipe, copy-paste ready
+- [cheatsheets/frontends.md](cheatsheets/frontends.md) — the four frontends: install commands, ports, choosing table
 
 ## Sources & videos
 
-- `docs/references.md` — API references, frontend repos, MCP spec
-- `videos.md` — curated videos
+- [docs/references.md](docs/references.md) — API references, frontend repos, MCP spec
+- [videos.md](videos.md) — curated videos
