@@ -42,6 +42,6 @@ docker run -d -p 3000:8080 \
 1. Port collisions — check `docker ps` before picking.
 2. RAG needs an embedding model reachable from *some* configured backend, or document upload fails obscurely.
 3. Slow first message = model load, not the UI (check runtime logs).
-4. LAN only — never expose to the internet without auth + TLS (see `10-deployment`).
+4. LAN only — never expose to the internet without auth + TLS.
 
 Verified against Open WebUI 0.7.x, AnythingLLM 1.13.x, LibreChat 0.9.x — 2026-11-08.

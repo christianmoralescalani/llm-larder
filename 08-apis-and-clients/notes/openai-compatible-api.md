@@ -85,7 +85,7 @@ Rule of thumb: **chat + sampling + JSON + tools + images work everywhere** — b
 4. **Reasoning content splits** — with thinking on, `content` may be empty while `reasoning_content` streams (llama.cpp/vLLM); Ollama uses its own `think` param + `thinking` field. Clients must read both.
 5. **Ollama's native API is not OpenAI-shaped** — `/api/chat` returns `message.content`, not `choices[0].message.content`. Don't mix the two dialects in one codebase.
 6. **Context limits differ** — a 32k prompt gets a 400/413 on a 4k-context server; read the error, check the runtime's ctx setting.
-7. **Auth is opt-in** — no key by default on all three; if you expose on LAN, set one (see [10-deployment](../10-deployment/)).
+7. **Auth is opt-in** — no key by default on all three; if you expose on LAN, set one.
 
 ## Sources
 

@@ -38,10 +38,7 @@ LocalLLM/
 ├── 06-sampling-and-prompting/    # Sampling params, chat templates, perf metrics
 ├── 07-multimodal-vision/         # Vision models, how they work, running them locally
 ├── 08-apis-and-clients/          # OpenAI-compatible API, curl/Python, frontends
-├── 09-other-runtimes/            # LM Studio, text-gen-webui, LocalAI, SGLang, etc.
-├── 10-deployment/                # Docker, LAN exposure, systemd, monitoring, security
-├── 11-troubleshooting/           # Common errors, OOM, CUDA issues, FAQ
-└── 12-glossary-and-links/        # Glossary + curated external resources
+└── 09-glossary-and-links/        # Glossary + curated external resources
 ```
 
 ---
@@ -149,34 +146,7 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Frontends**: Open WebUI, AnythingLLM, LibreChat, SillyTavern — install + point at Ollama/llama.cpp/vLLM — `notes/frontends.md`, `cheatsheets/frontends.md`
 - [x] **MCP servers (bonus)**: what MCP is, running local MCP servers with your local LLM, writing your own — `notes/mcp-servers.md`
 
-### 09 — Other Runtimes `[ ]`
-- [ ] **LM Studio**: GUI, model search/download, server mode (quick start for non-terminal users)
-- [ ] **text-generation-webui**: features, model management, extensions
-- [ ] **LocalAI**: OpenAI drop-in replacement, multi-model
-- [ ] **SGLang**: what it is, when it beats vLLM
-- [ ] **TensorRT-LLM**: NVIDIA-only, max performance, when it's worth it
-- [ ] **Hugging Face `transformers`**: quick tests, prototyping, when it's enough
-- [ ] **Comparison table**: runtime × (ease, speed, features, hardware support)
-
-### 10 — Deployment `[ ]`
-- [ ] **Docker**: Ollama / llama.cpp / vLLM images, docker-compose examples, volume for models
-- [ ] **systemd services**: running llama-server / vLLM as services with restart
-- [ ] **Exposing on LAN**: `OLLAMA_HOST=0.0.0.0`, reverse proxy, why you should not expose to the internet
-- [ ] **Security**: API keys, CORS, firewall rules, auth in front of the server
-- [ ] **Monitoring**: `nvidia-smi`, `nvtop`, vLLM `/metrics`, Ollama `ps`, log rotation
-- [ ] **Auto-loading models**: keep-alive, model switching, warmup
-
-### 11 — Troubleshooting `[ ]`
-- [ ] **Out of memory (CUDA OOM)**: diagnosis, fixes (quant, less context, less GPU layers, smaller model)
-- [ ] **Slow inference**: is it prefill or decode? RAM vs VRAM, `--n-gpu-layers` mistakes, CPU offload
-- [ ] **CUDA / driver errors**: version mismatches, `nvidia-smi` checks, container issues
-- [ ] **Model quality issues**: wrong chat template, bad quant, truncated context, thinking models cut off
-- [ ] **Model not found / download errors**: HF tokens, gated repos, registry issues
-- [ ] **Port conflicts, CORS, connection refused**: quick checks
-- [ ] **FAQ**: accumulated Q&A from real sessions
-- [ ] **Debugging workflow**: what to check first (checklist)
-
-### 12 — Glossary & Links `[ ]`
+### 09 — Glossary & Links `[ ]`
 - [ ] **Glossary**: token, parameter, quant, KV cache, prefill, decode, TTFT, MoE, MTP, GGUF, LoRA, speculative decoding, context window, embedding, chat template, tensor parallelism…
 - [ ] **Curated links**: official docs (HF, Ollama, llama.cpp, vLLM), best tutorials, active community resources
 - [ ] **Video playlists**: master list of all `videos.md` entries across the repo
@@ -191,9 +161,8 @@ Core concepts. Everything else assumes this is understood.
 4. **04 llama.cpp** (deepest control — GGUF workflow)
 5. **05 vLLM** (serving performance)
 6. **06 Sampling** → **07 Vision**
-7. **08 APIs & clients** → **09 Other runtimes**
-8. **10 Deployment** → **11 Troubleshooting** (fills in as problems appear)
-9. **12 Glossary & links** (continuous)
+7. **08 APIs & clients**
+8. **09 Glossary & links** (continuous)
 
 ## 5. Naming conventions
 

@@ -79,7 +79,7 @@ All four are free/open-source and all four point at your local runtime via `base
 3. **Embedding model mismatch** — the frontend's RAG needs an embedding model available on *some* backend you've configured; if it's missing, document upload fails obscurely.
 4. **Model name display** — frontends show whatever `GET /v1/models` returns; llama.cpp without `--alias` shows the GGUF filename (ugly but functional).
 5. **First-load delay** — the frontend is fast; the *model* isn't. A slow first message is usually model load, not the UI (check the runtime's logs).
-6. **Don't expose to the internet** — these UIs are for LAN/local; if you must, put auth + TLS in front (see [10-deployment](../10-deployment/)).
+6. **Don't expose to the internet** — these UIs are for LAN/local; if you must, put auth + TLS in front.
 
 ## Sources
 

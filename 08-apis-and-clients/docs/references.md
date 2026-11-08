@@ -34,4 +34,3 @@ Official docs and the tools this section is based on.
 - [04-llama-cpp/notes/api.md](../../04-llama-cpp/notes/api.md) — llama.cpp endpoints deep dive
 - [05-vllm](../../05-vllm/) — vLLM serving
 - [06-sampling-and-prompting/notes/prompting-basics.md](../../06-sampling-and-prompting/notes/prompting-basics.md) — RAG/JSON prompting patterns
-- [10-deployment](../../10-deployment/) — exposing any of these on the LAN safely
