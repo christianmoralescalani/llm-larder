@@ -128,12 +128,12 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Metrics & monitoring**: Prometheus `/metrics`, what to watch — `notes/metrics.md`
 - [x] **vLLM vs llama.cpp vs Ollama**: when to use which (cheatsheet) — `cheatsheets/vllm-vs-llamacpp-vs-ollama.md`
 
-### 06 — Sampling & Prompting `[ ]`
-- [ ] **Sampling parameters**: `temperature`, `top_p`, `top_k`, `min_p`, `typical_p`, `repetition_penalty`, `frequency/presence_penalty`, `seed` — what each does + recommended ranges
-- [ ] **Reasoning models**: thinking budgets, `reasoning_effort`, how to parse thinking blocks
-- [ ] **Chat templates**: how the prompt is assembled, `--jinja` in llama.cpp, `SYSTEM` in Ollama, what breaks when the template is wrong
-- [ ] **Performance metrics**: TTFT (time to first token), tokens/sec decode, prompt processing speed, how to measure them
-- [ ] **Prompting basics for local models**: system prompt design, few-shot, why local models need clearer instructions
+### 06 — Sampling & Prompting `[x]`
+- [x] **Sampling parameters**: `temperature`, `top_p`, `top_k`, `min_p`, `typical_p`, `repetition_penalty`, `frequency/presence_penalty`, `seed` — what each does + recommended ranges — `notes/sampling-parameters.md`, `cheatsheets/sampling-params.md`
+- [x] **Reasoning models**: thinking budgets, `reasoning_effort`, how to parse thinking blocks (llama.cpp `--reasoning*`, Ollama `think`, vLLM `--reasoning-parser`) — `notes/reasoning-models.md`, `cheatsheets/reasoning-controls.md`
+- [x] **Chat templates**: how the prompt is assembled, `--jinja` in llama.cpp, `SYSTEM` in Ollama, what breaks when the template is wrong — `notes/chat-templates.md`
+- [x] **Performance metrics**: TTFT (time to first token), tokens/sec decode, prompt processing speed, how to measure them — `notes/performance-metrics.md`, `cheatsheets/perf-metrics.md`
+- [x] **Prompting basics for local models**: system prompt design, few-shot, structured output, why local models need clearer instructions — `notes/prompting-basics.md`
 
 ### 07 — Multimodal & Vision `[ ]`
 - [ ] **How vision LLMs work**: image → patches → visual tokens, how many "tokens" an image costs, impact on context
