@@ -144,6 +144,15 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 .bigline { margin-top: 48px; font-size: 38px; line-height: 1.5; color: var(--text); max-width: 1400px; }
 .bigline .g { color: var(--green); font-weight: 700; }
 
+/* Meme slide (02): copy left, screenshot right */
+.meme-copy { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; max-width: 980px; }
+.meme-copy p { font-size: 30px; line-height: 1.5; color: var(--text); }
+.meme-copy .g { color: var(--green); font-weight: 700; }
+.meme-wrap { position: absolute; right: 120px; top: 210px; width: 520px; text-align: center; }
+.meme-img { width: 100%; display: block; border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 0 70px rgba(57,211,83,0.10); }
+.meme-cap { margin-top: 22px; font-size: 23px; color: var(--muted); letter-spacing: 0.03em; }
+
 /* Blinking block cursor */
 .cursor { display: inline-block; width: 22px; height: 40px; background: var(--green); vertical-align: -5px;
     animation: blink 1.06s steps(1) infinite; }
@@ -225,9 +234,24 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
             </div>
         </section>
 
-        <!-- ================= SLIDE 2 · WHY LOCAL ================= -->
+        <!-- ================= SLIDE 2 · MEME: SAM + 16GB ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 02 — why local</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 02 — interlude</div>
+            <h2 class="stitle reveal d2" style="max-width: 1060px;">Sam Altman, staring at my <span class="g">16 GB</span> of RAM</h2>
+            <div class="meme-copy">
+                <p class="reveal d4">him: 10<sup>5</sup> H100s, liquid cooling, a small country's power grid</p>
+                <p class="reveal d5">me: 16 GB, a fan the size of a hairdryer, and <span class="g">hope</span></p>
+            </div>
+            <div class="meme-wrap reveal d6">
+                <img class="meme-img" src="sam-altman-ram-meme.png" alt="Meme — Sam Altman looking at my 16gb of Ram at home">
+                <div class="meme-cap">— every local LLM dev, 2026</div>
+            </div>
+            <div class="sfoot"><span class="repo">llm-larder</span><span>02 / 11</span></div>
+        </section>
+
+        <!-- ================= SLIDE 3 · WHY LOCAL ================= -->
+        <section class="slide">
+            <div class="slabel reveal d1"><span class="p">$</span> 03 — why local</div>
             <h2 class="stitle reveal d2">Four reasons to run it <span class="g">yourself</span></h2>
             <div class="rows">
                 <div class="row reveal d3"><span class="term">PRIVACY</span><span class="def">data never leaves the machine</span></div>
@@ -235,12 +259,12 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 <div class="row reveal d5"><span class="term">OFFLINE</span><span class="def">works on a plane, in a cabin, anywhere</span></div>
                 <div class="row reveal d6"><span class="term">CONTROL</span><span class="def">your hardware, your parameters, your model</span></div>
             </div>
-            <div class="sfoot"><span class="repo">llm-larder</span><span>02 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder</span><span>03 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 3 · FOUR CONCEPTS ================= -->
+        <!-- ================= SLIDE 4 · FOUR CONCEPTS ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 03 — foundations</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 04 — foundations</div>
             <h2 class="stitle reveal d2">Four words carry the <span class="g">whole talk</span></h2>
             <div class="rows">
                 <div class="row reveal d3"><span class="term">token</span><span class="def">the unit of everything: text, context, speed, cost</span></div>
@@ -248,12 +272,12 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 <div class="row reveal d5"><span class="term">quantization</span><span class="def">compressing weights <span class="m">(Q4_K_M, Q8_0…)</span> so big models fit</span></div>
                 <div class="row reveal d6"><span class="term">KV cache</span><span class="def">the memory that grows with context — and eats VRAM</span></div>
             </div>
-            <div class="sfoot"><span class="repo">llm-larder · 00-foundations/</span><span>03 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 00-foundations/</span><span>04 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 4 · THE FORMULA ================= -->
+        <!-- ================= SLIDE 5 · THE FORMULA ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 04 — will it fit?</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 05 — will it fit?</div>
             <h2 class="stitle reveal d2">The <span class="g">only formula</span> you need</h2>
             <div class="code reveal d4">
                 <span class="g">VRAM</span> <span class="op">=</span> weights <span class="op">+</span> KV cache <span class="op">+</span> overhead<br>
@@ -263,12 +287,12 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 Qwen3.8-27B <span class="fl">@ Q4_K_XL</span> <span class="op">≈</span> <span class="g">16 GB</span> weights <span class="op">+</span> ~1–2 GB KV <span class="fl">@ 32k</span>
             </div>
             <div class="verdict reveal d6"><span class="g">→</span> fits a 16–24 GB card. If it fits, it's fast. If it doesn't, you hit the CPU-offload speed cliff.</div>
-            <div class="sfoot"><span class="repo">llm-larder · 02-hardware-and-vram/</span><span>04 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 02-hardware-and-vram/</span><span>05 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 5 · GETTING A MODEL ================= -->
+        <!-- ================= SLIDE 6 · GETTING A MODEL ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 05 — getting a model</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 06 — getting a model</div>
             <h2 class="stitle reveal d2">Search → inspect → <span class="g">download</span></h2>
             <div class="rows">
                 <div class="row step reveal d3"><span class="num">01</span><span class="def"><b style="color:var(--text)">search</b> <span class="m">—</span> task + size + quant: <span class="b">"27B · Q4 · GGUF · instruct"</span></span></div>
@@ -276,12 +300,12 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 <div class="row step reveal d5"><span class="num">03</span><span class="def"><b style="color:var(--text)">download</b> <span class="m">—</span> <span class="b">hf download &lt;repo&gt; &lt;file&gt;</span> <span class="m">— single file, resumable</span></span></div>
             </div>
             <div class="verdict reveal d6"><span class="m" style="color:var(--muted); font-size:27px;">The Hub is the Docker Hub for models. GGUF is the local format.</span></div>
-            <div class="sfoot"><span class="repo">llm-larder · 01-huggingface/</span><span>05 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 01-huggingface/</span><span>06 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 6 · CHOOSING A RUNTIME ================= -->
+        <!-- ================= SLIDE 7 · CHOOSING A RUNTIME ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 06 — choosing a runtime</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 07 — choosing a runtime</div>
             <h2 class="stitle reveal d2">Three runtimes, <span class="g">one API</span></h2>
             <div class="cols">
                 <div class="panel reveal d3">
@@ -301,12 +325,12 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 </div>
             </div>
             <div class="verdict reveal d7">all three speak <span class="g">OpenAI-compatible</span> — your client code doesn't change when you switch</div>
-            <div class="sfoot"><span class="repo">llm-larder · 03-ollama/ · 04-llama-cpp/ · 05-vllm/</span><span>06 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 03-ollama/ · 04-llama-cpp/ · 05-vllm/</span><span>07 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 7 · LIVE: DOCKER RUN → CHAT ================= -->
+        <!-- ================= SLIDE 8 · LIVE: DOCKER RUN → CHAT ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 07 — live: docker run → chat</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 08 — live: docker run → chat</div>
             <h2 class="stitle reveal d2">The <span class="g">actual</span> setup</h2>
             <div class="code reveal d4" style="margin-top:40px; font-size:27px; line-height:1.7; padding:36px 48px;">
                 <span class="cmd">docker run</span> -d <span class="fl">--gpus all</span> <span class="fl">-p</span> <span class="st">8080:8080</span> <span class="fl">-v</span> <span class="st">./models:/models</span> \<br>
@@ -315,16 +339,16 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 <span class="fl">--reasoning on</span> <span class="fl">-c</span> <span class="g">131072</span> <span class="fl">--flash-attn</span>
             </div>
             <div class="flags reveal d6">
-                <div class="flag"><span class="f">Q4_K_XL</span><span class="d">the quant — why it <span class="g">fits</span> (slide 4)</span></div>
-                <div class="flag"><span class="f">-c 131072</span><span class="d">context — the KV cache that <span class="g">eats VRAM</span> (slide 3)</span></div>
-                <div class="flag"><span class="f">--reasoning on</span><span class="d">it's a <span class="g">thinking model</span> — the budget is a dial (slide 8)</span></div>
+                <div class="flag"><span class="f">Q4_K_XL</span><span class="d">the quant — why it <span class="g">fits</span> (slide 5)</span></div>
+                <div class="flag"><span class="f">-c 131072</span><span class="d">context — the KV cache that <span class="g">eats VRAM</span> (slide 4)</span></div>
+                <div class="flag"><span class="f">--reasoning on</span><span class="d">it's a <span class="g">thinking model</span> — the budget is a dial (slide 9)</span></div>
             </div>
-            <div class="sfoot"><span class="repo">llm-larder · 04-llama-cpp/ · 08-apis-and-clients/</span><span>07 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 04-llama-cpp/ · 08-apis-and-clients/</span><span>08 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 8 · THE DIALS ================= -->
+        <!-- ================= SLIDE 9 · THE DIALS ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 08 — the dials</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 09 — the dials</div>
             <h2 class="stitle reveal d2">Sampling is the <span class="g">quality dial</span></h2>
             <div class="rows">
                 <div class="row reveal d3"><span class="term">temperature</span><span class="def">randomness — lower = more focused</span></div>
@@ -332,25 +356,25 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 <div class="row reveal d5"><span class="term">reasoning budget</span><span class="def">thinking <span class="m">on / off / limited</span> — more thinking = better, slower</span></div>
             </div>
             <div class="chip reveal d7"><span class="k">working defaults:</span> <span class="g">--temp 0.6 --top-p 0.95 --top-k 20</span></div>
-            <div class="sfoot"><span class="repo">llm-larder · 06-sampling-and-prompting/</span><span>08 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 06-sampling-and-prompting/</span><span>09 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 9 · BEYOND TEXT ================= -->
+        <!-- ================= SLIDE 10 · BEYOND TEXT ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 09 — beyond text</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 10 — beyond text</div>
             <h2 class="stitle reveal d2">Same runtimes, same API — <span class="g">new model files</span></h2>
             <div class="rows">
-                <div class="row reveal d3"><span class="term">vision</span><span class="def">image → visual tokens; an image <span class="b">costs context</span> <span class="m">(the --mmproj flag from slide 7)</span></span></div>
+                <div class="row reveal d3"><span class="term">vision</span><span class="def">image → visual tokens; an image <span class="b">costs context</span> <span class="m">(the --mmproj flag from slide 8)</span></span></div>
                 <div class="row reveal d4"><span class="term">embeddings</span><span class="def">the RAG building block — text → vectors</span></div>
                 <div class="row reveal d5"><span class="term">audio</span><span class="def">Whisper-family transcription</span></div>
             </div>
             <div class="verdict reveal d6">same formula, same flags — <span class="g">just different model files</span>. The one new idea: images eat VRAM.</div>
-            <div class="sfoot"><span class="repo">llm-larder · 07-multimodal-vision/</span><span>09 / 10</span></div>
+            <div class="sfoot"><span class="repo">llm-larder · 07-multimodal-vision/</span><span>10 / 11</span></div>
         </section>
 
-        <!-- ================= SLIDE 10 · USE THE REPO + Q&A ================= -->
+        <!-- ================= SLIDE 11 · USE THE REPO + Q&A ================= -->
         <section class="slide">
-            <div class="slabel reveal d1"><span class="p">$</span> 10 — keep going</div>
+            <div class="slabel reveal d1"><span class="p">$</span> 11 — keep going</div>
             <h2 class="stitle reveal d2">The repo is the <span class="g">next step</span></h2>
             <div class="tree reveal d4">
                 <span class="d">llm-larder/</span><br>
@@ -358,7 +382,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
                 └── each folder: <span class="f">notes/</span> · <span class="f">cheatsheets/</span> · <span class="f">docs/</span> · <span class="f">videos.md</span> · <span class="f">Index.md</span>
             </div>
             <div class="bigline reveal d6">New to a topic? Open its <span class="g">Index.md</span> — it says what to read first, and in what order<span class="cursor"></span></div>
-            <div class="sfoot"><span class="repo">github.com/christianmoralescalani/llm-larder · Q&amp;A</span><span>10 / 10</span></div>
+            <div class="sfoot"><span class="repo">github.com/christianmoralescalani/llm-larder · Q&amp;A</span><span>11 / 11</span></div>
         </section>
     </main>
 
@@ -459,7 +483,7 @@ class SlidePresentation {
 class InlineEditor {
     constructor() {
         this.active = false;
-        this.key = 'local-llm-deck-v2';
+        this.key = 'local-llm-deck-v3';
         this.stage = document.getElementById('deckStage');
         this.toggleBtn = document.getElementById('editToggle');
         this.hotzone = document.getElementById('editHotzone');
