@@ -27,7 +27,7 @@
 | 7. Live: docker run → chat | `04-llama-cpp/`, `08-apis-and-clients/` |
 | 8. The dials | `06-sampling-and-prompting/` |
 | 9. Beyond text | `07-multimodal-vision/` |
-| 10. Use the repo + Q&A | (root), `09-glossary-and-links/` |
+| 10. Use the repo + Q&A | (root) |
 
 ---
 
@@ -143,11 +143,11 @@ docker run -d --gpus all -p 8080:8080 -v ./models:/models \
 ### 10. Use the repo + Q&A
 
 **On the slide.**
-- 10 folders × 5 content types: `notes/` · `cheatsheets/` · `docs/` · `videos.md` · `Index.md`
+- 9 folders × 5 content types: `notes/` · `cheatsheets/` · `docs/` · `videos.md` · `Index.md`
 - **"New to a topic? Open its `Index.md` — it says what to read first and in what order."**
-- Repo link · `09-glossary-and-links/` for terms + video master list
+- Repo link
 
-**Say (60 s).** How to keep learning after the talk: every folder has an index with a reading order, cheatsheets for the daily work, and a curated video list. The glossary is living — terms get added as they come up.
+**Say (60 s).** How to keep learning after the talk: every folder has an index with a reading order, cheatsheets for the daily work, and a curated video list.
 
 **Demo.** Navigate the repo live: open an `Index.md`, click through its reading order, land on a cheatsheet. End on the repo root.
 

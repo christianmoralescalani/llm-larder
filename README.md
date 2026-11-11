@@ -15,7 +15,6 @@ Notes, videos, slides, cheatsheets, and docs about **running LLMs locally**.
 | Sampling & prompting | [`06-sampling-and-prompting/`](06-sampling-and-prompting/) |
 | Multimodal / vision models | [`07-multimodal-vision/`](07-multimodal-vision/) |
 | APIs & clients (OpenAI-compatible, frontends) | [`08-apis-and-clients/`](08-apis-and-clients/) |
-| Glossary & curated links | [`09-glossary-and-links/`](09-glossary-and-links/) |
 
 ## How to navigate
 

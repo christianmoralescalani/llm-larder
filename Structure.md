@@ -39,8 +39,7 @@ LocalLLM/
 ├── 05-vllm/                      # Install, vllm serve, offline inference, args
 ├── 06-sampling-and-prompting/    # Sampling params, chat templates, perf metrics
 ├── 07-multimodal-vision/         # Vision models, how they work, running them locally
-├── 08-apis-and-clients/          # OpenAI-compatible API, curl/Python, frontends
-└── 09-glossary-and-links/        # Glossary + curated external resources
+└── 08-apis-and-clients/          # OpenAI-compatible API, curl/Python, frontends
 ```
 
 ---
@@ -148,11 +147,6 @@ Core concepts. Everything else assumes this is understood.
 - [x] **Frontends**: Open WebUI, AnythingLLM, LibreChat, SillyTavern — install + point at Ollama/llama.cpp/vLLM — `notes/frontends.md`, `cheatsheets/frontends.md`
 - [x] **MCP servers (bonus)**: what MCP is, running local MCP servers with your local LLM, writing your own — `notes/mcp-servers.md`
 
-### 09 — Glossary & Links `[ ]`
-- [ ] **Glossary**: token, parameter, quant, KV cache, prefill, decode, TTFT, MoE, MTP, GGUF, LoRA, speculative decoding, context window, embedding, chat template, tensor parallelism…
-- [ ] **Curated links**: official docs (HF, Ollama, llama.cpp, vLLM), best tutorials, active community resources
-- [ ] **Video playlists**: master list of all `videos.md` entries across the repo
-
 ---
 
 ## 4. Roadmap (suggested order)
@@ -164,7 +158,6 @@ Core concepts. Everything else assumes this is understood.
 5. **05 vLLM** (serving performance)
 6. **06 Sampling** → **07 Vision**
 7. **08 APIs & clients**
-8. **09 Glossary & links** (continuous)
 
 ## 5. Naming conventions
 
